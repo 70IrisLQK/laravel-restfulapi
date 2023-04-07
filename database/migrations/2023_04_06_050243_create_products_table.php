@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Product;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,16 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->string('verified')->default(User::UNVERIFIED_USER);
-            $table->string('verification_token')->nullable();
-            $table->string('admin')->default(User::REGULAR_USER);
+            $table->string('slug')->unique();
+            $table->text('description');
+            $table->integer('quantity')->unsigned();
+            $table->string('status')->default(Product::UNAVAILABLE_PRODUCT);
+            $table->string('image');
+            $table->foreignId('seller_id')->constrained('users', 'id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('products');
     }
 };
