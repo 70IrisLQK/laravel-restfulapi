@@ -12,6 +12,8 @@ class Category extends Model
 
     protected $fillable = ['name', 'description', 'slug'];
 
+    protected $hidden = ['pivot'];
+
     /**
      * The roles that belong to the Category
      *

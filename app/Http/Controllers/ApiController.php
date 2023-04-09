@@ -47,4 +47,12 @@ class ApiController extends Controller
             $message
         );
     }
+
+    protected function showMessage($message, $code)
+    {
+        return new JsonResponse([
+            'code' => $code,
+            'data' => $message
+        ]);
+    }
 }
